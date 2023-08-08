@@ -1,0 +1,90 @@
+{% extends "chats/main.html" %} {% block link %}
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+  crossorigin="anonymous"
+/>
+{% endblock %} {% block body %}
+<p class="fs-2 text-center">Community Chat</p>
+<div id="community_messages">
+  <div
+    class="card"
+    style="max-width: 35rem; margin-left: auto; margin-right: auto"
+  >
+    {% for message in messages %}
+    <div class="card" style="max-height: 100px">
+      <div class="card-body">
+        <a style="color: grey;text-decoration:none;font-size:15px;position:relative;bottom:10px" href="{% url 'accounts:friend_info' message.user.id %}">{{ message.user }} || {{message.date_time}}</a>
+        {% if message.user == request.user %}        
+          <a class="cross_btn" href="{% url 'chats:community_delete' message.id %}" style="text-decoration: none;"
+        >❌</a>
+        {% endif %}
+        <p style="font-size: 17px;">{{message.message}}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<div
+  class="form-floating"
+  id="send_message"
+  style="
+    max-width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    margin-bottom:-35px;
+  "
+>
+  <input type="text"
+    style="margin-top: 5%"
+    class="form-control"
+    placeholder="Send a message (keep messages short)"
+    id="floatingTextarea"
+  ></>
+  <span class="send_icon" style="position: relative;left:0px;"><i class="fa-solid fa-paper-plane"></i></span>
+</div>
+<script>
+  const csrfToken = getCookie("csrftoken");
+  let messageBox = document.querySelector("#floatingTextarea");
+  let send_btn = document.querySelector(".send_icon");
+  messageBox.addEventListener('keydown',(event)=>{
+    if(event.Codekey===13 || event.which===13){
+      console.log("enter button pressed")
+        send_message_func()
+    }
+  })
+  send_btn.addEventListener("click", () => {
+        send_message_func()
+  });
+  function send_message_func(){
+    if (messageBox.value !== "") {
+        fetch('{% url "chats:community" %}', {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+            "X-CSRFToken": csrfToken,
+          },
+          body: JSON.stringify({ message: messageBox.value }),
+        })
+        .then((response)=>response.json())
+        .then((data)=>console.log(data))
+        messageBox.value=""
+        window.location.reload()
+      }
+  }
+  function getCookie(name) {
+    const cookieValue = document.cookie.match(
+      "(^|;)\\s*" + name + "\\s*=\\s*([^;]+)"
+    );
+    return cookieValue ? cookieValue.pop() : "";
+  }  
+</script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+  crossorigin="anonymous"
+></script>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'accounts/main.html' %}
+{% block link %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  </head>
+{% endblock %}
+{% block body %}
+
+<div class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Deactivation</h5>
+        <button type="button" class="btn-close btn-closes" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Really want to deactivate an account ?</p>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-primary btn-closes">Cancel</a>
+        <a href="{% url 'accounts:delete_user' %}" class="btn btn-primary">Yes! Proceed</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="max-width: 35rem;margin-left:auto;margin-right:auto"><div class="card" style="max-width: 35rem;">
+    <div class="card-body">
+        <div class="card">
+            <div class="card-body text-center">
+              <p class="profile_info">Username</p>
+              <p class="profile_data">{{user.username | title}}</p>
+            </div>
+          </div><div class="card">
+            <div class="card-body text-center">
+              <p class="profile_info">Email</p>
+              <p class="profile_data">{{user.email | title}}</p>
+            </div>
+          </div><div class="card">
+            <div class="card-body text-center">
+              <p class="profile_info">Date Of Birth</p>
+              <p class="profile_data">{{user.birthday}}</p>
+            </div>
+          </div><div class="card">
+            <div class="card-body text-center">
+              <p class="profile_info">created on</p>
+              <p class="profile_data">{{user.create_on}}</p>
+            </div>
+          </div>
+    </div>
+  </div>
+  <div class="btn-group" role="group" aria-label="Basic outlined example" style="position:relative;left:37%;gap:10px;margin-top:10px">
+    <a class="btn btn-outline-secondary delete_user">Deactivate</a>
+    <a href="{% url 'accounts:logout_user' %}" class="btn btn-outline-primary">Logout</a>
+  </div>
+</div>
+<script>
+  let delete_user=document.querySelector('.modal')
+  let deac_cancel=document.querySelectorAll('.btn-closes')
+  let deactivate=document.querySelector('.delete_user')
+  deactivate.addEventListener('click',()=>{
+    delete_user.style.display='block'
+  })
+ deac_cancel.forEach((btn)=>{
+  btn.addEventListener('click',()=>{
+    delete_user.style.display='none'
+  })
+ })
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  </body>
+{% endblock %}

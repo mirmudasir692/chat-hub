@@ -1,0 +1,123 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  min-height: 100vh;
+  background-color: #fff;
+  font-family: sans-serif;
+}
+nav {
+  max-width: 100%;
+  background: linear-gradient(rgba(184, 68, 68, 0.5), rgba(184, 68, 68, 0.5));
+}
+nav ul {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+nav ul li {
+  padding: 10px 15px;
+  list-style: none;
+}
+nav ul li a {
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+  font-weight: 500;
+  font-family: serif;
+  padding: 10px 15px;
+}
+nav ul li a:hover {
+  background-color: white;
+}
+.ig_logo {
+  font-size: 25px;
+}
+#send_message {
+  position: fixed;
+  bottom: 5%;
+  clear:both;
+  left: 34%;
+  width: 60%;
+  margin-right: auto;
+  margin-left: auto;
+
+}
+#floatingTextarea::placeholder {
+  color: grey;
+}
+.send_icon {
+  padding: 10px;
+  font-size: 30px;
+  position: relative;
+  top: 33px;
+  left: 500px;
+  cursor: pointer;
+}
+#community_messages{
+  height: 80vh;
+  overflow:scroll;
+  max-width: 35rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+#user_name{
+  font-size: 30px;
+}
+#user_name a{
+  text-decoration: none;
+  color: black;
+  font-weight: 200;
+}
+.message_cont{
+  overflow-y: visible;
+}
+.cross_btn{
+  position: absolute;
+  left: 93%;
+  cursor: pointer;
+}
+.receiver{
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 40px;
+}
+.user_name{
+  position: absolute;
+  right: 10px;
+  font-size: 20px;
+  font-weight: 100;
+}
+@media screen and (max-width:500px) {
+  nav ul{
+    padding: 1px;
+    font-size: 10px;
+    gap: 0px;
+    justify-content: space-evenly;
+    padding-left: 10px;
+    padding-left: 2px;
+
+  }
+  nav ul li{
+    padding: 10px 10px;
+  }
+  nav ul li a{
+    font-size: 12px;
+    padding: 2px;
+    
+  }
+  .user_name{
+    font-size: 10px;
+    display: none;
+
+  }
+  #floatingTextarea{
+    min-width:200%;
+    margin-left: -55px;
+  }
+  .send_icon{
+    position: relative;
+    top: 5px;
+  }
+}

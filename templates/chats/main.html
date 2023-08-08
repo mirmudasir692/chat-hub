@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    {% block link %}
+    {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/chats.css' %}" />
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Hub</title>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="{% url 'chats:chat_home' %}"><span><i class="fa-solid fa-house"></i></span></a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'chats:community' %}">Community Chat</a></li>
+        <li><a href="{% url 'chats:Direct_messages' %}">Direct message</a></li>
+        <li><a href="{% url 'accounts:user_profile' %}">Profile</a></li>
+        <li class="user_name">{{request.user | title}}</li>
+        {% else %}
+        <li><a href="{% url 'accounts:login_user' %}">Login</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+    {% block body %}
+
+    {% endblock %}
+  </body>
+</html>

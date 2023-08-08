@@ -1,0 +1,15 @@
+{% extends 'accounts/main.html' %} {% block body %}
+<div class="container">
+  {% for message in messages %}
+  <div class="messages">{{message}}</div>
+  {% endfor %}
+  <h2 class="login_heading">Login</h2>
+  <form action="" method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Username" />
+    <input type="password" name="password" placeholder="Password" />
+    <input type="submit" value="Login" class="login-btn" />
+  </form>
+  <p>Don't have an account? <a href="{% url 'accounts:create_user' %}">Create</a></p>
+</div>
+{% endblock %}

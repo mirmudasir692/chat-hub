@@ -1,0 +1,40 @@
+{% extends 'accounts/main.html' %} {% block body %}
+<div class="card-body">
+  <p
+    class="fs-1 display-1 font-monospace text-center"
+    style="color: green; padding-bottom: 20px"
+  >
+    {{user.username| title}}'s profile
+  </p>
+  <div class="card">
+    <div class="card-body text-center">
+      <p class="profile_info">Username</p>
+      <p class="profile_data">{{user.username | title}}</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body text-center">
+      <p class="profile_info">Email</p>
+      <p class="profile_data">{{user.email | title}}</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body text-center">
+      <p class="profile_info">Date Of Birth</p>
+      <p class="profile_data">{{user.birthday}} </p>
+    </div>
+  </div>
+</div> <div class="card">
+  <div class="card-body text-center">
+    <p class="profile_info">Last seen</p>
+    <p class="profile_data"><span class="green-dot"><i class="fa-solid fa-circle"></i></span> {{user.last_seen}}</p>
+  </div>
+  <div class="card">
+    <div class="card-body text-center">
+      <p class="profile_info"> Journey Started On</p>
+      <p class="profile_data">{{user.create_on}}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

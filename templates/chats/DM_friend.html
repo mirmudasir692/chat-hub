@@ -1,0 +1,90 @@
+{% extends "chats/main.html" %} {% block link %}
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+  crossorigin="anonymous"
+/>
+{% endblock %} {% block body %}
+<p class="text-center receiver">{{user | title}}</p>
+<div id="community_messages" style="max-height: 50%">
+  <div
+    class="card"
+    style="max-width: 35rem; margin-left: auto; margin-right: auto"
+  >
+    {% for message in messages %}
+    <div class="card" style="max-height: 100px">
+      <div class="card-body">
+        <p style="color: grey">
+          {% if message.user1 == user %}
+          <a
+            href="{% url 'accounts:friend_info' user.id %}"
+            style="text-decoration: none; color: grey"
+            >{{ message.user1 }}</a
+          >
+          {% else %}
+          <a
+            href="{% url 'accounts:user_profile' %}"
+            style="text-decoration: none; color: grey"
+            >{{message.user1}}</a
+          >
+          {% endif %} || {{message.date_time}} 
+          {% if message.user1 == request.user %}
+          <a
+            class="cross_btn"
+            href="{% url 'chats:DM_delete' message.id %}"
+            style="text-decoration: none"
+            >❌</a
+          >
+          {% endif %}
+        </p>
+
+        <p class="message_cont">{{message.message}}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<form
+  method="post"
+  action=""
+  class="form-floating text-center"
+  id="send_message"
+  style="
+    max-width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+  "
+>
+  {% csrf_token %}
+  <input
+    type="text"
+    style="position: absolute; bottom: -30px"
+    class="form-control"
+    placeholder="Send a message (keep messages short)"
+    name="message"
+    id="floatingTextarea"
+    required
+  />
+  <button type="submit" style="border: none" class="send_icon">
+    <i class="fa-solid fa-paper-plane"></i>
+  </button>
+</form>
+<script>
+  let messagebox = document.querySelector("#floatingTextarea");
+  let send_btn = document.querySelector(".send_icon");
+  if (messagebox.value !== "") {
+    send_btn.addEventListener("click", () => {
+      window.location.reload();
+      messagebox.value = "";
+    });
+  }
+</script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+  crossorigin="anonymous"
+></script>
+{% endblock %}
